@@ -28,7 +28,7 @@ void Enemy::showData(std::ostream& ostm) const
 void Enemy::receiveDamage(int damage) {
 	hitPoint -= damage;
 }
-int Enemy::getHitpoint() const //HP‚Ì’l‚ðŽæ“¾
+int Enemy::getHitpoint() const noexcept //HP‚Ì’l‚ðŽæ“¾
 {
 	return hitPoint;
 }

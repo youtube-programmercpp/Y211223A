@@ -13,38 +13,32 @@ Game::Game()
 
 	//敵数分繰り返す
 	for (auto& r : enemy) {
-		const auto index = &r - enemy;
+		const auto index = &r - &enemy.front();
 		if (index == enemy_num)
 			break;
 		else {
 			// 敵オブジェクトを生成
-			r = new Enemy
+			r =
 			{ "スライム" + to_string(index) // 敵オブジェクトの名前を設定
 			, ENEMY_HP_MIN + rnd() % (ENEMY_HP_MAX - ENEMY_HP_MIN + 1)// 敵オブジェクトのHPを設定
 			};
 		}
 	}
 }
-Game::~Game()
-{
-	//敵オブジェクト破棄
-	for (auto& r : enemy)
-		delete r;
-}
 bool Game::全ての敵が倒れた() const noexcept
 {
-	for (const auto& p : enemy) {
-		if (p && *p)
+	for (const auto& r : enemy) {
+		if (r)
 			return false;
 	}
 	return true;
 }
 void Game::すべての敵の状態を表示() const
 {
-	for (const auto& p : enemy) {
-		if (p && *p) {
-			cout << &p - enemy << ":";
-			p->showData(cout);
+	for (const auto& r : enemy) {
+		if (r) {
+			cout << &r - &enemy.front() << ":";
+			r.showData(cout);
 		}
 	}
 }
@@ -68,7 +62,7 @@ void Game::execute() {
 			if (cmd == 999)
 				break;
 			else if (0 <= cmd && cmd < enemy_num) {
-				指定した敵にダメージ与える(*enemy[cmd], rnd() % ATTACK_MAX, cout);
+				指定した敵にダメージ与える(enemy[cmd], rnd() % ATTACK_MAX, cout);
 				if (全ての敵が倒れた()) {
 					cout << "全てのスライムを倒した" << endl;
 					break;
