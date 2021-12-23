@@ -28,19 +28,7 @@ void Enemy::showData(std::ostream& ostm) const
 void Enemy::receiveDamage(int damage) {
 	hitPoint -= damage;
 }
-int Enemy::getHitpoint() const noexcept //HPの値を取得
-{
-	return hitPoint;
-}
-void Enemy::setName(std::string na)
-{
-	name = na;
-}
 std::string Enemy::getName() const
 {
 	return name;
-}
-void Enemy::setHitPoint(int hit) //HPの値セット
-{
-	hitPoint = hit;
 }
