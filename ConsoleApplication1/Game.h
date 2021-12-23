@@ -9,21 +9,14 @@
 #define ATTACK_MAX (10+1) // 攻撃の最大値
 
 class Game {
-private:
-
-	std::random_device rnd; // 乱数発生用オブジェクト
-
-	int enemy_num; // 敵の総数
-
-	Enemy* enemy[10]; // 敵オブジェクト
-
-	void initialize(); // 初期化
-
-	void battle(); // 戦闘
-
-	void finalize(); // 終了
+	std::random_device   rnd      ; // 乱数発生用オブジェクト
+	int                  enemy_num; // 敵の総数
+	Enemy              * enemy[10]; // 敵オブジェクト
+	bool 全ての敵が倒れた() const noexcept;
+	void すべての敵の状態を表示() const;
+	static void 指定した敵にダメージ与える(Enemy& r, int damage, std::ostream& ostm);
 public:
-
-	Game(); // コンストラクタ
+	Game();
+	~Game();
 	void execute(); // 実行
 };

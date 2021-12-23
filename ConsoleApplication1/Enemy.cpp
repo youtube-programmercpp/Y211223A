@@ -1,22 +1,34 @@
+#include "Enemy.h"
+#include<iostream>
+
+Enemy::Enemy
+( std::string&& name    
+, int           hitPoint
+) noexcept
+	: name    (std::move(name    ))
+	, hitPoint(          hitPoint )
+{
+}
+Enemy::operator bool() const noexcept
+{
+	return hitPoint > 0;
+}
+
+
+
 //Enemy.cpp
 
-#include<iostream>
-#include "Enemy.h"
 using namespace std;
 //状態を表示
-void Enemy::showData() {
-	cout << "name = \"" << name << "\", hitPoint = " << hitPoint << endl;
+void Enemy::showData(std::ostream& ostm) const
+{
+	ostm << "name = \"" << name << "\", hitPoint = " << hitPoint << endl;
 }
 //ダメージを受ける
 void Enemy::receiveDamage(int damage) {
 	hitPoint -= damage;
-	cout << damage << "のダメージを受けた" << endl;
-	if (hitPoint < 0) {
-		hitPoint = 0;
-		cout << name << "は倒れた" << endl;
-	}
 }
-int Enemy::getHitpoint() //HPの値を取得
+int Enemy::getHitpoint() const //HPの値を取得
 {
 	return hitPoint;
 }
@@ -24,7 +36,7 @@ void Enemy::setName(std::string na)
 {
 	name = na;
 }
-std::string Enemy::getName()
+std::string Enemy::getName() const
 {
 	return name;
 }
