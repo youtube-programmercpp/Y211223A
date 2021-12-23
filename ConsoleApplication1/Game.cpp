@@ -2,13 +2,13 @@
 #include <iostream>
 #include <string>
 #include "Game.h"
-#include "Enemy.h"
 using namespace std;
 
 // コンストラクタ
 Game::Game() {
 	//敵オブジェクトをNULLで初期化
-	for (？？？)
+	for (int index = 0; index < sizeof enemy / sizeof * enemy; index++)
+		enemy[index] = NULL;
 
 	enemy_num = 0;
 }
@@ -39,11 +39,11 @@ void Game::initialize() {
 
 		// 敵オブジェクトの名前を設定
 		string enemy_name = "スライム" + to_string(index);
-		？？？
+		enemy[index]->setName(enemy_name);
 
 		// 敵オブジェクトのHPを設定
 		int enemy_hp = ENEMY_HP_MIN + rnd() % (ENEMY_HP_MAX - ENEMY_HP_MIN + 1);
-		？？？
+		enemy[index]->setHitPoint(enemy_hp);
 
 	}
 }
@@ -67,21 +67,30 @@ void Game::battle() {
 		cin >> cmd;
 
 		//入力値が終了なら戦闘終了
-		？？？
+		if (cmd == 999)
+			break;
 
 		// 入力値が有効か判定
-		if (？？？) {
+		if (cmd < 0 || cmd >= enemy_num) {
 			cout << "無効な値です。" << endl;
 		}
 		else {
 			//指定した敵にダメージ与える
-			int damage rnd() % ATTACK_MAX;
-			？？？
+			int damage = rnd() % ATTACK_MAX;
+			enemy[cmd]->receiveDamage(damage);
 
 			//全ての敵が倒れたら戦闘終了
-			？？？
-			if (？？？)
+			end = 1;
+			for (int index = 0; index < enemy_num; ++index) {
+				if (enemy[index]->getHitpoint() > 0) {
+					end = 0;
+					break;
+				}
+			}
+			if (end) {
 				cout << "全てのスライムを倒した" << endl;
+				break;
+			}
 		}
 	}
 }
@@ -89,7 +98,7 @@ void Game::battle() {
 void Game::finalize() {
 	//敵オブジェクト破棄
 	for (int index = 0; index < enemy_num; index++) {
-		？？？？
+		delete enemy[index];
 
 	}
 }

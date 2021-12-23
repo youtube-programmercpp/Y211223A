@@ -2,7 +2,7 @@
 class Enemy {
 private:
 	std::string name;
-	int hitPint; //‘Ì—Í
+	int hitPoint; //‘Ì—Í
 
 public:
 	void setName(std::string na);

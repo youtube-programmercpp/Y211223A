@@ -22,7 +22,6 @@ private:
 	void battle(); // 戦闘
 
 	void finalize(); // 終了
-
 public:
 
 	Game(); // コンストラクタ
